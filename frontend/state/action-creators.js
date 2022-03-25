@@ -1,17 +1,47 @@
+import {
+  INPUT_CHANGE,
+  MOVE_CLOCKWISE,
+  MOVE_COUNTERCLOCKWISE,
+  RESET_FORM,
+  SET_INFO_MESSAGE,
+  SET_QUIZ_INTO_STATE,
+  SET_SELECTED_ANSWER} from './action-types'
 // ❗ You don't need to add extra action creators to achieve MVP
-export function moveClockwise() { }
+//wheel
+export function moveClockwise() { 
+  return { type: MOVE_CLOCKWISE }
+} 
 
-export function moveCounterClockwise() { }
+//wheel
+export function moveCounterClockwise() { 
+  return { type: MOVE_COUNTERCLOCKWISE }
+}
 
-export function selectAnswer() { }
+//quiz
+export function selectAnswer() {
+  return { 
+    type: SET_SELECTED_ANSWER    
+  }
+ }
 
-export function setMessage() { }
+//infoMessage
+export function setMessage() {
+  return { type: SET_INFO_MESSAGE }
+}
 
-export function setQuiz() { }
+//quiz
+export function setQuiz() { 
+  return { type: SET_QUIZ_INTO_STATE }
+}
 
-export function inputChange() { }
-
-export function resetForm() { }
+//form
+export function inputChange({ name, value }) {
+  return { type: INPUT_CHANGE, payload: { name, value } }
+ }
+//form
+export function resetForm() {
+  return { type: RESET_FORM }
+ }
 
 // ❗ Async action creators
 export function fetchQuiz() {
