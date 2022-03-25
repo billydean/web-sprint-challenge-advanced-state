@@ -1,6 +1,29 @@
 import React from 'react'
+import {connect} from 'react-redux';
+import * as actionCreators from '../state/action-creators';
 
-export default function Quiz(props) {
+function Quiz(props) {
+  const {firstOption, secondOption, selectAnswer} = props;
+  console.log(firstOption, secondOption);
+  const selectHandler =(e)=> {
+    let opt1 = {class: "answer", text: "Select"};
+    let opt2 = {class: "answer", text: "Select"};
+    console.log(e.target);
+    switch (e.target.id) {
+      case "one": 
+        if (firstOption.class === "answer") {
+          opt1 = {class: "answer selected", text: "SELECTED" };
+          opt2 = {class: "answer", text: "Select"}
+          selectAnswer({opt1,opt2})
+        }
+      case "two":
+        if (secondOption.class === "answer") {
+          opt1 = {class: "answer", text: "Select"};
+          opt2 = {class: "answer selected", text: "SELECTED" };
+          selectAnswer({opt1,opt2})
+        }
+    }
+  }
   return (
     <div id="wrapper">
       {
@@ -10,17 +33,17 @@ export default function Quiz(props) {
             <h2>What is a closure?</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
+              <div className={firstOption.class} >
                 A function
-                <button>
-                  SELECTED
+                <button id="one" onClick={()=>selectHandler}>
+                  {firstOption.text}
                 </button>
               </div>
 
-              <div className="answer">
+              <div className={secondOption.class}>
                 An elephant
-                <button>
-                  Select
+                <button id="two" onClick={(e)=>selectHandler(e)}>
+                  {secondOption.text}
                 </button>
               </div>
             </div>
@@ -32,3 +55,12 @@ export default function Quiz(props) {
     </div>
   )
 }
+const mapStateToProps = state => {
+  return {
+    
+      firstOption: state.selectedAnswer.firstOption,
+      secondOption: state.selectedAnswer.secondOption,
+    
+  }
+}
+export default connect(mapStateToProps, actionCreators)(Quiz)

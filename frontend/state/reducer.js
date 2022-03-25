@@ -94,11 +94,18 @@ function quiz(state = initialQuizState, action) {
   return state
 }
 
-const initialSelectedAnswerState = null
-function selectedAnswer(state = initialSelectedAnswerState, action) {
-  return state
+const initialSelectedAnswerState = {
+  firstOption: { class: "answer", text: "Select" },
+  secondOption: { class: "answer", text: "Select" }
 }
-
+function selectedAnswer(state = initialSelectedAnswerState, action) {
+  switch (action.type) {
+    case SET_SELECTED_ANSWER: 
+      return action.payload;
+    default:
+      return state
+}
+}
 const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
   return state
