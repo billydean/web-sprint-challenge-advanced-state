@@ -3,12 +3,15 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
-  const {firstOption, secondOption, selectAnswer} = props;
-  console.log(firstOption, secondOption);
+  const {selectedAnswer, selectAnswer} = props;
+  const {firstOption, secondOption} = selectedAnswer;
+  
+  let disabled = true;
   const selectHandler =(e)=> {
     let opt1 = {class: "answer", text: "Select"};
     let opt2 = {class: "answer", text: "Select"};
-    console.log(e.target);
+	// test to see if "target.id" is even "one" or "two"!
+    console.log(e.target.id);
     switch (e.target.id) {
       case "one": 
         if (firstOption.class === "answer") {
@@ -23,7 +26,10 @@ function Quiz(props) {
           selectAnswer({opt1,opt2})
         }
     }
+	disabled = false;
   }
+  	
+	
   return (
     <div id="wrapper">
       {
@@ -31,7 +37,6 @@ function Quiz(props) {
         true ? (
           <>
             <h2>What is a closure?</h2>
-
             <div id="quizAnswers">
               <div className={firstOption.class} >
                 A function
@@ -48,7 +53,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button id="submitAnswerBtn" disabled={disabled}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -57,10 +62,7 @@ function Quiz(props) {
 }
 const mapStateToProps = state => {
   return {
-    
-      firstOption: state.selectedAnswer.firstOption,
-      secondOption: state.selectedAnswer.secondOption,
-    
+    selectedAnswer : state.selectedAnswer,
   }
 }
 export default connect(mapStateToProps, actionCreators)(Quiz)

@@ -40,6 +40,8 @@ Open the live prototype linked above and study its functionality using the follo
 - Submitting a new quiz successfully **adds it to the roster** of questions that cycle through the quiz screen.
 - The structure of the HTML (hierarchy, ids, class names, texts on buttons etc) must match those of the prototype exactly.
 
+
+
 ## Studying the API
 
 The endpoints needed for this project are the following:

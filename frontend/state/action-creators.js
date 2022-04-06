@@ -31,8 +31,12 @@ export function setMessage() {
 }
 
 //quiz
-export function setQuiz() { 
-  return { type: SET_QUIZ_INTO_STATE }
+export function setQuiz({
+	question, trueAnswer, falseAnswer
+}) { 
+  return { type: SET_QUIZ_INTO_STATE, payload: {
+	  question, trueAnswer, falseAnswer
+  } }
 }
 
 //form

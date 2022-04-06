@@ -3,13 +3,25 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
-
+	const { setQuiz, resetForm, inputChange, form } = props;
+	// check whether "id" works here, or whether you should add "names" to form inputs
   const onChange = evt => {
-
+	  // evt.preventDefault() ?
+	{value,id} = evt.target;
+	inputChange({
+		[id]:value;
+	})
   }
 
   const onSubmit = evt => {
-
+	// evt.preventDefault() ?
+	evt.preventDefault();
+	setQuiz({
+		question: form.newQuestion,
+		trueAnswer: form.newTrueAnswer,
+		falseAnswer: form.newFalseAnswer,
+	})
+	resetForm();
   }
 
   return (
@@ -22,5 +34,9 @@ export function Form(props) {
     </form>
   )
 }
-
-export default connect(st => st, actionCreators)(Form)
+const mapStateToProps = state => {
+	return {
+		form : state.form,
+	}
+}
+export default connect(mapStateToProps, actionCreators)(Form)
