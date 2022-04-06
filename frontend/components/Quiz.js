@@ -4,29 +4,32 @@ import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
   const {selectedAnswer, selectAnswer} = props;
-  const {firstOption, secondOption} = selectedAnswer;
+ 
   
   let disabled = true;
+
   const selectHandler =(e)=> {
     let opt1 = {class: "answer", text: "Select"};
     let opt2 = {class: "answer", text: "Select"};
 	// test to see if "target.id" is even "one" or "two"!
-    console.log(e.target.id);
     switch (e.target.id) {
       case "one": 
-        if (firstOption.class === "answer") {
+        if (selectedAnswer.firstOption.class === "answer") {
           opt1 = {class: "answer selected", text: "SELECTED" };
           opt2 = {class: "answer", text: "Select"}
-          selectAnswer({opt1,opt2})
+          selectAnswer(opt1,opt2)
         }
+        break;
       case "two":
-        if (secondOption.class === "answer") {
+        if (selectedAnswer.secondOption.class === "answer") {
           opt1 = {class: "answer", text: "Select"};
           opt2 = {class: "answer selected", text: "SELECTED" };
-          selectAnswer({opt1,opt2})
+          selectAnswer(opt1,opt2)
         }
+        break;
     }
 	disabled = false;
+  console.log(selectedAnswer);
   }
   	
 	
@@ -38,17 +41,17 @@ function Quiz(props) {
           <>
             <h2>What is a closure?</h2>
             <div id="quizAnswers">
-              <div className={firstOption.class} >
+              <div className={selectedAnswer.firstOption.class}>
                 A function
-                <button id="one" onClick={()=>selectHandler}>
-                  {firstOption.text}
+                <button id="one" onClick={(e)=>selectHandler(e)}>
+                  {selectedAnswer.firstOption.text}
                 </button>
               </div>
 
-              <div className={secondOption.class}>
+              <div className={selectedAnswer.secondOption.class}>
                 An elephant
                 <button id="two" onClick={(e)=>selectHandler(e)}>
-                  {secondOption.text}
+                  {selectedAnswer.secondOption.text}
                 </button>
               </div>
             </div>
@@ -62,7 +65,7 @@ function Quiz(props) {
 }
 const mapStateToProps = state => {
   return {
-    selectedAnswer : state.selectedAnswer,
+    selectedAnswer: state.selectedAnswer,
   }
 }
 export default connect(mapStateToProps, actionCreators)(Quiz)

@@ -18,10 +18,13 @@ export function moveCounterClockwise() {
 }
 
 //quiz
-export function selectAnswer({firstOption, secondOption}) {
+export function selectAnswer(firstOption, secondOption) {
   return { 
     type: SET_SELECTED_ANSWER,
-    payload: {firstOption, secondOption}    
+    payload: {
+      firstOption,
+      secondOption
+    }    
   }
  }
 
