@@ -4,17 +4,15 @@ import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
 	const { setQuiz, resetForm, inputChange, form } = props;
-	// check whether "id" works here, or whether you should add "names" to form inputs
   const onChange = evt => {
-	  // evt.preventDefault() ?
-	{value,id} = evt.target;
+	const {value,id} = evt.target;
 	inputChange({
-		[id]:value;
+		...form,
+		[id]:value,
 	})
   }
 
   const onSubmit = evt => {
-	// evt.preventDefault() ?
 	evt.preventDefault();
 	setQuiz({
 		question: form.newQuestion,
@@ -24,13 +22,18 @@ export function Form(props) {
 	resetForm();
   }
 
+  const isDisabled =()=>{
+	  if (form.newQuestion.trim().length > 0 && form.newTrueAnswer.trim().length > 0 && form.newFalseAnswer.trim().length > 0) {
+		  return false
+	  } else { return true }
+  }
   return (
     <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
-      <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
-      <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
-      <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" value={form.newQuestion} />
+      <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" value={form.newTrueAnswer}/>
+      <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" value={form.newFalseAnswer}/>
+      <button disabled={isDisabled()} id="submitNewQuizBtn">Submit new quiz</button>
     </form>
   )
 }

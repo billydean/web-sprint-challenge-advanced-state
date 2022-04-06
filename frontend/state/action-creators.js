@@ -40,8 +40,18 @@ export function setQuiz({
 }
 
 //form
-export function inputChange({ name, value }) {
-  return { type: INPUT_CHANGE, payload: { name, value } }
+export function inputChange({
+  newQuestion,
+  newTrueAnswer,
+  newFalseAnswer,
+}) {
+  return { type: INPUT_CHANGE
+    , payload: {
+    newQuestion,
+    newTrueAnswer,
+    newFalseAnswer,
+  } 
+}
  }
 //form
 export function resetForm() {
