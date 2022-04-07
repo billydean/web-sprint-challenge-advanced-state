@@ -8,6 +8,7 @@ import {
   SET_SELECTED_ANSWER} from './action-types'
 // ❗ You don't need to add extra action creators to achieve MVP
 //wheel
+import axios from 'axios';
 export function moveClockwise() { 
   return { type: MOVE_CLOCKWISE }
 } 
@@ -64,6 +65,19 @@ export function resetForm() {
 // ❗ Async action creators
 export function fetchQuiz() {
   return function (dispatch) {
+    dispatch({type: SET_QUIZ_INTO_STATE, payload:{
+      question: '',
+      trueAnswer: '',
+      falseAnswer: '',
+    }});
+    axios.get(`http://localhost:9000/api/quiz/next`)
+      .then(res => {
+        dispatch({ type:SET_QUIZ_INTO_STATE, payload:{
+          question: res.data.question,
+          trueAnswer: res.data.answers[0].text,
+          falseAnswer: res.data.answers[1].text,
+        }})
+      })
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
