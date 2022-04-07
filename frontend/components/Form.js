@@ -14,11 +14,11 @@ export function Form(props) {
 
   const onSubmit = evt => {
 	evt.preventDefault();
-	setQuiz({
-		question: form.newQuestion,
-		trueAnswer: form.newTrueAnswer,
-		falseAnswer: form.newFalseAnswer,
-	})
+	// setQuiz({
+	// 	question: form.newQuestion,
+	// 	trueAnswer: form.newTrueAnswer,
+	// 	falseAnswer: form.newFalseAnswer,
+	// })
 	postQuiz({
 		question_text: form.newQuestion,
 		true_answer_text: form.newTrueAnswer,

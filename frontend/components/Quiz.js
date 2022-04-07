@@ -7,11 +7,11 @@ function Quiz(props) {
   const [disabled, setDisabled] = useState(true)
   const [selected, setSelected] = useState("")
   
-  const selectHandler =(e)=> {
+  const selectHandler =(tag)=> {
     let opt1 = {class: "answer", text: "Select"};
     let opt2 = {class: "answer", text: "Select"};
 	// test to see if "target.id" is even "one" or "two"!
-    switch (e.target.id) {
+    switch (tag) {
       case "one": 
         if (selectedAnswer.firstOption.class === "answer") {
           opt1 = {class: "answer selected", text: "SELECTED" };
@@ -56,19 +56,18 @@ function Quiz(props) {
             <div id="quizAnswers">
               <div className={selectedAnswer.firstOption.class}>
                 {quiz.trueAnswer}
-                <button id="one" onClick={(e)=>selectHandler(e)}>
+                <button onClick={()=>selectHandler("one")}>
                   {selectedAnswer.firstOption.text}
                 </button>
               </div>
 
               <div className={selectedAnswer.secondOption.class}>
                 {quiz.falseAnswer}
-                <button id="two" onClick={(e)=>selectHandler(e)}>
+                <button onClick={()=>selectHandler("two")}>
                   {selectedAnswer.secondOption.text}
                 </button>
               </div>
             </div>
-
             <button id="submitAnswerBtn" disabled={disabled} onClick={()=>{submitHandler()}}> Submit answer</button>
           </>
         ) : 'Loading next quiz...'
