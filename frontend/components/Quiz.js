@@ -1,20 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
   const {selectedAnswer, selectAnswer, quiz, fetchQuiz} = props;
- 
+  const [disabled, setDisabled] = useState(true)
   
-  // let disabled = true;
-  // const enabler =()=> {
-  //   if (disabled) {
-  //     return true 
-  //   } else {return false}
-
-  // }
   const selectHandler =(e)=> {
-    disabled = false;
     let opt1 = {class: "answer", text: "Select"};
     let opt2 = {class: "answer", text: "Select"};
 	// test to see if "target.id" is even "one" or "two"!
@@ -33,11 +25,9 @@ function Quiz(props) {
           opt2 = {class: "answer selected", text: "SELECTED" };
           selectAnswer(opt1,opt2)
         }
-        
         break;
     }
-    
-	 console.log(disabled);
+    setDisabled(false);
   }
   	
 	useEffect(()=>{
@@ -66,7 +56,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" disabled={false}> Submit answer</button>
+            <button id="submitAnswerBtn" disabled={disabled}> Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
