@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
-  const {selectedAnswer, selectAnswer, quiz, fetchQuiz} = props;
+  const {postAnswer, selectedAnswer, selectAnswer, quiz, fetchQuiz} = props;
   const [disabled, setDisabled] = useState(true)
+  const [selected, setSelected] = useState("")
   
   const selectHandler =(e)=> {
     let opt1 = {class: "answer", text: "Select"};
@@ -17,7 +18,7 @@ function Quiz(props) {
           opt2 = {class: "answer", text: "Select"}
           selectAnswer(opt1,opt2)
         }
-        
+        setSelected(quiz.true_id)
         break;
       case "two":
         if (selectedAnswer.secondOption.class === "answer") {
@@ -25,11 +26,16 @@ function Quiz(props) {
           opt2 = {class: "answer selected", text: "SELECTED" };
           selectAnswer(opt1,opt2)
         }
+        setSelected(quiz.false_id)
         break;
     }
     setDisabled(false);
   }
   const submitHandler =() => {
+    postAnswer({
+      quiz_id: quiz.quiz_id,
+      answer_id: selected
+    })
     fetchQuiz();
   }
 
@@ -73,7 +79,7 @@ function Quiz(props) {
 const mapStateToProps = state => {
   return {
     selectedAnswer: state.selectedAnswer,
-    quiz: state.quiz
+    quiz: state.quiz,
   }
 }
 export default connect(mapStateToProps, actionCreators)(Quiz)

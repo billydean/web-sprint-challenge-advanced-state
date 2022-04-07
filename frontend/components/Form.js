@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
-	const { setQuiz, resetForm, inputChange, form } = props;
+	const { postQuiz, setQuiz, resetForm, inputChange, form } = props;
   const onChange = evt => {
 	const {value,id} = evt.target;
 	inputChange({
@@ -19,6 +19,11 @@ export function Form(props) {
 		trueAnswer: form.newTrueAnswer,
 		falseAnswer: form.newFalseAnswer,
 	})
+	postQuiz({
+		question_text: form.newQuestion,
+		true_answer_text: form.newTrueAnswer,
+		false_answer_text: form.newFalseAnswer
+	});
 	resetForm();
   }
 
