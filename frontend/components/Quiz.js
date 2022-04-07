@@ -29,7 +29,10 @@ function Quiz(props) {
     }
     setDisabled(false);
   }
-  	
+  const submitHandler =() => {
+    fetchQuiz();
+  }
+
 	useEffect(()=>{
     fetchQuiz()
   }, [])
@@ -56,7 +59,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" disabled={disabled}> Submit answer</button>
+            <button id="submitAnswerBtn" disabled={disabled} onClick={()=>{submitHandler()}}> Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }

@@ -63,6 +63,7 @@ export function resetForm() {
  }
 
 // ❗ Async action creators
+
 export function fetchQuiz() {
   return function (dispatch) {
     dispatch({type: SET_QUIZ_INTO_STATE, payload:{
@@ -76,6 +77,10 @@ export function fetchQuiz() {
           question: res.data.question,
           trueAnswer: res.data.answers[0].text,
           falseAnswer: res.data.answers[1].text,
+        }});
+        dispatch({ type: SET_SELECTED_ANSWER, payload:{
+          firstOption: { class: "answer", text: "Select" },
+          secondOption: { class: "answer", text: "Select" }
         }})
       })
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
