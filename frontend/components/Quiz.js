@@ -34,7 +34,11 @@ function Quiz(props) {
   }
 
 	useEffect(()=>{
-    fetchQuiz()
+    if (quiz.question) {
+      console.log('no need')
+    } else {
+      fetchQuiz()
+    }
   }, [])
 
   return (
